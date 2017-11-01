@@ -1,3 +1,5 @@
+package exercise2;
+
 import pmp.filter.Source;
 import pmp.interfaces.Readable;
 

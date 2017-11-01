@@ -1,3 +1,5 @@
+package exercise2;
+
 import com.sun.media.jai.widget.DisplayJAI;
 import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;
@@ -53,7 +55,7 @@ public class Filter1 extends DataTransformationFilter2<PlanarImage, PlanarImage>
 
 // Set the closing operation so the application is finished.
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400,200); // adjust the frame size.
+    frame.setSize(500,600); // adjust the frame size.
     frame.setVisible(true); // show the frame.
     return null;
   }
