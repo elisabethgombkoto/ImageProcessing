@@ -6,10 +6,7 @@ import pmp.interfaces.Readable;
 import javax.imageio.ImageIO;
 import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.StreamCorruptedException;
 
 /**
