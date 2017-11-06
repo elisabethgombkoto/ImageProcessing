@@ -21,4 +21,24 @@ public class SourcePicture extends Source<PlanarImage>  {
     PlanarImage image = JAI.create("fileload", _path);
   return image;
   }
+
+  @Override
+  public void run() {
+    PlanarImage output = null;
+
+    try {
+      do{
+        if (m_Output == null) {
+          throw new StreamCorruptedException( "output filter is null" );
+        }
+        output = read();
+        m_Output.write(output);
+
+      } while(output != null);
+      epilogue();
+
+    } catch (StreamCorruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -1,13 +1,12 @@
 package main;
 
-import exercise2.Filter1;
+import exercise2.SourceImageFilter;
 import exercise2.SourcePicture;
 import pmp.interfaces.Readable;
 import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
 import java.io.StreamCorruptedException;
-import java.util.ResourceBundle;
 
 /**
  * Created by Elisabeth on 30.10.2017.
@@ -23,7 +22,14 @@ public class Run {
 
 
     SimplePipe<PlanarImage> sp1 = new SimplePipe<PlanarImage>(lena);
-    Filter1 filter1 = new Filter1((Readable<PlanarImage>) sp1);
+    SourceImageFilter<PlanarImage> filter1 = new SourceImageFilter((Readable<PlanarImage>) sp1);
+
+
+
+
+
+
+
     filter1.read();
   }
 

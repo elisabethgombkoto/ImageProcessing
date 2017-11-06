@@ -4,6 +4,7 @@ import com.sun.media.jai.widget.DisplayJAI;
 import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
+import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
 import javax.swing.*;
@@ -13,24 +14,29 @@ import java.security.InvalidParameterException;
 /**
  * Created by Elisabeth on 31.10.2017.
  */
-public class Filter1 extends DataTransformationFilter2<PlanarImage, PlanarImage> {
+public class SourceImageFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
 
-  public Filter1(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
+  public SourceImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
     super(input, output);
   }
 
-  public Filter1(Readable<PlanarImage> input) throws InvalidParameterException {
+  public SourceImageFilter(Readable<PlanarImage> input) throws InvalidParameterException {
     super(input);
   }
 
-  public Filter1(Writeable<PlanarImage> output) throws InvalidParameterException {
+  public SourceImageFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
     super(output);
   }
 
+
   protected PlanarImage process(PlanarImage image) {
+
+
     //Get some information about the image
     String imageInfo =
         "Dimensions: "+image.getWidth()+"x"+image.getHeight()+ " Bands:"+image.getNumBands();
+
+    System.out.println("width: "+image.getWidth() + " " + "height: " + " " + +image.getHeight());
 
 // Create a frame for display.
     JFrame frame = new JFrame();
