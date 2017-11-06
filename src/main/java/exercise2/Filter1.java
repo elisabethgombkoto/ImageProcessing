@@ -34,7 +34,7 @@ public class Filter1 extends DataTransformationFilter2<PlanarImage, PlanarImage>
 
 // Create a frame for display.
     JFrame frame = new JFrame();
-    frame.setTitle("DisplayJAI: lena512.jpg");
+    frame.setTitle("DisplayJAI: loetstellen.jpg");
 
 // Get the JFrame� ContentPane.
     Container contentPane = frame.getContentPane();

@@ -1,12 +1,9 @@
 package exercise2;
 
 import pmp.filter.Source;
-import pmp.interfaces.Readable;
 
-import javax.imageio.ImageIO;
 import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
-
 import java.io.StreamCorruptedException;
 
 /**

@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public class Run {
   public static void main(String[] args) throws StreamCorruptedException {
     String workspaceDir = System.getProperty("user.dir");
-    String loetstellePath= workspaceDir + "\\src\\main\\resources\\lena512.JPG";
+    String loetstellePath= workspaceDir + "\\src\\main\\resources\\loetstellen.jpg";
     //String lenaPath ="C:\\Users\\Elisabeth\\IdeaProjects\\ImageProcessing\\src\\main\\resources\\lena512.JPG";
     SourcePicture lena =  new SourcePicture(loetstellePath);
     System.out.println(System.getProperty("user.dir"));
