@@ -8,7 +8,7 @@ import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
 import pmp.filter.DataTransformationFilter2;
 
-import CalcCentroids.Coordinate;
+import CalcCentroids.*;
 
 import javax.media.jai.PlanarImage;
 import java.awt.image.BufferedImage;
@@ -51,7 +51,7 @@ public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, 
 
 	private void getNextFigure(BufferedImage img, int x, int y) {
 		ArrayList<Coordinate> figure = new ArrayList<Coordinate>();
-		_general.put( new Coordinate( x,y ), true );
+		_general.put( new Coordinate( x, y ), true );
 		figure.add(new Coordinate(x, y));
 
 		addConnectedComponents(img, figure, x, y);

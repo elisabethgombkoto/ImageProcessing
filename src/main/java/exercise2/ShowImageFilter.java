@@ -14,17 +14,17 @@ import java.security.InvalidParameterException;
 /**
  * Created by Elisabeth on 31.10.2017.
  */
-public class SourceImageFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
+public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
 
-  public SourceImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
+  public ShowImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
     super(input, output);
   }
 
-  public SourceImageFilter(Readable<PlanarImage> input) throws InvalidParameterException {
+  public ShowImageFilter(Readable<PlanarImage> input) throws InvalidParameterException {
     super(input);
   }
 
-  public SourceImageFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
+  public ShowImageFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
     super(output);
   }
 

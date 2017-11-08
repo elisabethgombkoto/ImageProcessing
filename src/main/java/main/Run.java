@@ -1,6 +1,6 @@
 package main;
 
-import exercise2.SourceImageFilter;
+import exercise2.ShowImageFilter;
 import exercise2.SourcePicture;
 import pmp.interfaces.Readable;
 import pmp.pipes.SimplePipe;
@@ -22,7 +22,7 @@ public class Run {
 
 
     SimplePipe<PlanarImage> sp1 = new SimplePipe<PlanarImage>(lena);
-    SourceImageFilter<PlanarImage> filter1 = new SourceImageFilter((Readable<PlanarImage>) sp1);
+    ShowImageFilter<PlanarImage> filter1 = new ShowImageFilter((Readable<PlanarImage>) sp1);
 
 
 
