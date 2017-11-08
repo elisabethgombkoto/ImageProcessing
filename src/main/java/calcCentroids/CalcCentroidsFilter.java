@@ -1,4 +1,4 @@
-package CalcCentroids;
+package calcCentroids;
 /* this filter expects the bonding discs to be completely white: pixel value of 255 on a scale of 0..255
  * all other pixels in the image are expected to have a pixel value < 255
  * use this filter adapting eventually the package name
@@ -7,8 +7,6 @@ package CalcCentroids;
 import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
 import pmp.filter.DataTransformationFilter2;
-
-import CalcCentroids.*;
 
 import javax.media.jai.PlanarImage;
 import java.awt.image.BufferedImage;

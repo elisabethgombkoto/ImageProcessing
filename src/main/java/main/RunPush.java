@@ -1,6 +1,5 @@
 package main;
 
-import CalcCentroids.CalcCentroidsFilter;
 import exercise2.*;
 import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
