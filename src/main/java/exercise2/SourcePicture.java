@@ -1,9 +1,12 @@
 package exercise2;
 
 import pmp.filter.Source;
+import pmp.interfaces.Writeable;
+import pmp.pipes.SimplePipe;
 
 import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
+import java.io.FileNotFoundException;
 import java.io.StreamCorruptedException;
 
 /**
@@ -12,10 +15,14 @@ import java.io.StreamCorruptedException;
 public class SourcePicture extends Source<PlanarImage>  {
 
   private String _path;
-  public SourcePicture(String path){
+  //public SourcePicture(String path, SimplePipe<PlanarImage> sp1){
+    //_path = path;
+  //}
+
+  public SourcePicture(String path, Writeable<PlanarImage> output) throws FileNotFoundException {
+    super(output);
     _path = path;
   }
-
   public PlanarImage read() throws StreamCorruptedException {
 
     PlanarImage image = JAI.create("fileload", _path);
@@ -27,18 +34,14 @@ public class SourcePicture extends Source<PlanarImage>  {
     PlanarImage output = null;
 
     try {
-      do{
-        if (m_Output == null) {
-          throw new StreamCorruptedException( "output filter is null" );
-        }
-        output = read();
-        m_Output.write(output);
-
-      } while(output != null);
-      epilogue();
-
+      output = read();
+      m_Output.write(output);
     } catch (StreamCorruptedException e) {
       e.printStackTrace();
     }
+
   }
+
+
+
 }

@@ -63,6 +63,6 @@ public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, Plan
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(500,600); // adjust the frame size.
     frame.setVisible(true); // show the frame.
-    return null;
+    return image;
   }
 }

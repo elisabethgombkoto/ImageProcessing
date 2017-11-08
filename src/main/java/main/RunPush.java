@@ -5,6 +5,7 @@ import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
 
@@ -13,7 +14,7 @@ import java.io.StreamCorruptedException;
  */
 public class RunPush {
 
-  public static void main(String[] args) throws StreamCorruptedException {
+  public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
 
     PictureSink pictureSink = new PictureSink();
     SimplePipe <PlanarImage> sp13 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) pictureSink );
@@ -56,7 +57,7 @@ public class RunPush {
 
     ShowImageFilter showImageFilter1 = new ShowImageFilter((Writeable<PlanarImage>) sp2 );
     SimplePipe <PlanarImage> sp1 = new SimplePipe <PlanarImage>( (Writeable<PlanarImage>) showImageFilter1);
-    SourcePicture source = new SourcePicture( "loetstellen.jpg" );
+    SourcePicture source = new SourcePicture( "loetstellen.jpg", sp1 );
 
     source.run();
   }
