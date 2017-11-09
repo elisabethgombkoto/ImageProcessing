@@ -15,18 +15,21 @@ import java.security.InvalidParameterException;
 public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImage>{
 
     //Grösse des neuen Frames. y-Start ab 50 bis Ende 150
-    private Rectangle rectangle = new Rectangle (0, 50, 447, 150);
+    private Rectangle _rectangle;
 
-    public RoiFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
+    public RoiFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, Rectangle rectangle) throws InvalidParameterException {
         super( input, output );
+        _rectangle = rectangle;
     }
 
-    public RoiFilter(Readable<PlanarImage> input) throws InvalidParameterException {
+    public RoiFilter(Readable<PlanarImage> input, Rectangle rectangle) throws InvalidParameterException {
         super( input );
+        _rectangle = rectangle;
     }
 
-    public RoiFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
+    public RoiFilter(Writeable<PlanarImage> output, Rectangle rectangle) throws InvalidParameterException {
         super( output );
+        _rectangle = rectangle;
     }
     //TODO RectangelDaten beim Konstruktoraufruf mitgeben.
 
@@ -34,9 +37,9 @@ public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImag
     @Override
     protected PlanarImage process(PlanarImage entity) {
         PlanarImage image = entity;
-        image = PlanarImage.wrapRenderedImage((RenderedImage)image.getAsBufferedImage(rectangle, image.getColorModel()));
-        image.setProperty( "offsetX", (int)rectangle.getX());
-        image.setProperty( "offsetY",(int) rectangle.getY());
+        image = PlanarImage.wrapRenderedImage(image.getAsBufferedImage(_rectangle, image.getColorModel()));
+        image.setProperty( "offsetX", _rectangle.getX());
+        image.setProperty( "offsetY", _rectangle.getY());
         return image;
     }
 
