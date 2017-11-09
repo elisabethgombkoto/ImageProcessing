@@ -16,41 +16,37 @@ import java.security.InvalidParameterException;
  */
 public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
 
-  public ShowImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
+  private String _title;
+  public ShowImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, String title) throws InvalidParameterException {
     super(input, output);
+    _title = title;
   }
 
-  public ShowImageFilter(Readable<PlanarImage> input) throws InvalidParameterException {
+  public ShowImageFilter(Readable<PlanarImage> input, String title) throws InvalidParameterException {
     super(input);
+    _title=title;
   }
 
-  public ShowImageFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
+  public ShowImageFilter(Writeable<PlanarImage> output, String title) throws InvalidParameterException {
     super(output);
+    _title = title;
   }
-
 
   protected PlanarImage process(PlanarImage image) {
-
-
     //Get some information about the image
     String imageInfo =
         "Dimensions: "+image.getWidth()+"x"+image.getHeight()+ " Bands:"+image.getNumBands();
 
-    System.out.println("width: "+image.getWidth() + " " + "height: " + " " + +image.getHeight());
-
-// Create a frame for display.
+    // Create a frame for display.
     JFrame frame = new JFrame();
-    frame.setTitle("DisplayJAI: loetstellen.jpg");
+    frame.setTitle("DisplayJAI: "+ _title);
 
 // Get the JFrame� ContentPane.
     Container contentPane = frame.getContentPane();
     contentPane.setLayout(new BorderLayout());
 
-
-
 // Create an instance of DisplayJAI.
     DisplayJAI dj = new DisplayJAI(image);
-
 
 // Add to the JFrame� ContentPane an instance of JScrollPane
 // containing the DisplayJAI instance.

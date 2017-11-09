@@ -4,7 +4,11 @@ import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
 
+import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
+import javax.media.jai.operator.MedianFilterDescriptor;
+import javax.media.jai.operator.MedianFilterShape;
+import java.awt.image.renderable.ParameterBlock;
 import java.security.InvalidParameterException;
 
 /**
@@ -22,8 +26,15 @@ public class MedianFilter extends DataTransformationFilter2<PlanarImage,PlanarIm
   public MedianFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
     super(output);
   }
-
+  //google ist mein beste freund
+  //https://www.programcreek.com/java-api-examples/index.php?api=javax.media.jai.operator.MedianFilterDescriptor
   protected PlanarImage process(PlanarImage entity) {
-    return null;
+    final int size = 3;
+    final MedianFilterShape shape = MedianFilterDescriptor.MEDIAN_MASK_SQUARE;
+    final ParameterBlock pb = new ParameterBlock();
+    pb.addSource(entity);
+    pb.add(shape);
+    pb.add(size);
+    return JAI.create("medianfilter", pb);
   }
 }
