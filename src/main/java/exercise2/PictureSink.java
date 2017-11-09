@@ -37,24 +37,22 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
   @Override
   public void write(ArrayList<Coordinate> actualValues) throws StreamCorruptedException {
     ArrayList<Coordinate> expectedValues = createExpectedCordinateList(_exceptedMiddelCoordinatePath);
-
     StringBuilder stringBuilder = new StringBuilder();
 
     int i = 1;
 
     for ( Coordinate cordinate : actualValues) {
-
-      stringBuilder.append(i++ + ".Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y +
-       ", Tolerance -> ±  " + _tolerance + " in the tolerance range ->  " + isInTolerance(cordinate, expectedValues.get(i-2)) + "\n");
+      String s = i++ + ".Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y +
+       ", Tolerance -> ±  " + _tolerance + " in the tolerance range ->  " +
+          isInTolerance(cordinate, expectedValues.get(i-2)) + "\n";
+      stringBuilder.append(s);
     }
-
     try {
       _fileWriter.write(stringBuilder.toString());
       _fileWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
   private boolean isInTolerance(Coordinate actuelCordinate, Coordinate expectedCoordinate) {

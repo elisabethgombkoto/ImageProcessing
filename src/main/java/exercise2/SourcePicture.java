@@ -23,8 +23,9 @@ public class SourcePicture extends Source<PlanarImage>  {
     super(output);
     _path = path;
   }
-  public PlanarImage read() throws StreamCorruptedException {
+  public SourcePicture(){};
 
+  public PlanarImage read() throws StreamCorruptedException {
     PlanarImage image = JAI.create("fileload", _path);
   return image;
   }
