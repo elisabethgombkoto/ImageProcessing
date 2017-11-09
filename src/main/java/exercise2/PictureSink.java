@@ -85,4 +85,18 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
     return expected;
   }
+
+  @Override
+  public void run() {
+    ArrayList<Coordinate> input;
+    try {
+      input = m_Input.read();
+
+      if (input != null) {
+        write(input);
+      }
+    } catch (StreamCorruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

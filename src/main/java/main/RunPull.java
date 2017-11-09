@@ -22,7 +22,7 @@ public class RunPull {
       File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPull.txt");
       FileWriter fileWriter = new FileWriter(file);
 
-      SourcePicture sourcePicture = new SourcePicture();
+      SourcePicture sourcePicture = new SourcePicture("loetstellen.jpg");
       SimplePipe<PlanarImage> sp1 = new SimplePipe<PlanarImage>(sourcePicture);
       ShowImageFilter showImageFilter1 = new ShowImageFilter((Readable<PlanarImage>) sp1," Original picture");
       SimplePipe<PlanarImage> sp2 = new SimplePipe<PlanarImage>((Readable<PlanarImage>) showImageFilter1);
