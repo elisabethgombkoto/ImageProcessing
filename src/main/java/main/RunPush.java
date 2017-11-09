@@ -7,6 +7,7 @@ import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StreamCorruptedException;

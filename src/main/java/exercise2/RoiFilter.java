@@ -38,8 +38,8 @@ public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImag
     protected PlanarImage process(PlanarImage entity) {
         PlanarImage image = entity;
         image = PlanarImage.wrapRenderedImage(image.getAsBufferedImage(_rectangle, image.getColorModel()));
-        image.setProperty( "offsetX", _rectangle.getX());
-        image.setProperty( "offsetY", _rectangle.getY());
+        image.setProperty( "offsetX",(int) _rectangle.getX());
+        image.setProperty( "offsetY", (int)_rectangle.getY());
         return image;
     }
 
