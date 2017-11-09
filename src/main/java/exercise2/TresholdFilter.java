@@ -44,7 +44,7 @@ public class TresholdFilter extends DataTransformationFilter2<PlanarImage,Planar
         pb.add(low);
         pb.add(high);
         pb.add(map);
-        RenderedOp dest= JAI.create("threshold",pb);
+        PlanarImage dest= JAI.create("threshold",pb);
         return dest;
     }
 }

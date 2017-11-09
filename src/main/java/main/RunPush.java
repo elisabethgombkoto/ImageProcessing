@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class RunPush {
 
   public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
-
+    System.setProperty("com.sun.media.jai.disableMediaLib", "true");
 
     //TODO ich check es noch nicht, also wir machen erst den rest fertig ok?
     //Katja erklärt mir es morgen, dann kann ich diese auch koorekt in main einfügen
@@ -61,5 +61,6 @@ public class RunPush {
     SourcePicture source = new SourcePicture( "loetstellen.jpg", sp1 );
 
     source.run();
+
   }
 }
