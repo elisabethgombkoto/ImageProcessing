@@ -6,7 +6,6 @@ import pmp.interfaces.Writeable;
 
 import javax.media.jai.PlanarImage;
 import java.awt.*;
-import java.awt.image.RenderedImage;
 import java.security.InvalidParameterException;
 
 /**
@@ -14,7 +13,6 @@ import java.security.InvalidParameterException;
  */
 public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImage>{
 
-    //Grösse des neuen Frames. y-Start ab 50 bis Ende 150
     private Rectangle _rectangle;
 
     public RoiFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, Rectangle rectangle) throws InvalidParameterException {
