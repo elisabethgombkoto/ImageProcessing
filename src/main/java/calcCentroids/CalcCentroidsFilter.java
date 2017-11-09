@@ -33,6 +33,7 @@ public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, 
 
 
 	protected ArrayList<Coordinate> process(PlanarImage entity) {
+		_image = entity;
 		BufferedImage bi = entity.getAsBufferedImage();
 
 		for (int x = 0; x < bi.getWidth(); x++) {

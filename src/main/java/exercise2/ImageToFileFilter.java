@@ -12,7 +12,7 @@ import java.security.InvalidParameterException;
 
 /**
  * Created by Bernd on 08.11.2017.
- *  Es speichert einfach das übergeben bekommene planarimage.
+ *  Es speichert einfach das übergeben bekommene planarimage --> png oder Daten -->txt.
  *  Dies passiert in der methode process.
  *  Das planarimage wird nicht verändert,
  *  daher kann das unveränderte weiter geschickt werden
@@ -38,6 +38,6 @@ public class ImageToFileFilter extends DataTransformationFilter1<PlanarImage> {
 
   @Override
   protected void process(PlanarImage image) {
-    RenderedOp op = JAI.create("filestore", image, _destinationPath, "PNG");
+    RenderedOp op = JAI.create("filestore", image, _destinationPath, "png");
   }
 }

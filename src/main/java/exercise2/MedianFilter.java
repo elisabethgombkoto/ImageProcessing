@@ -15,6 +15,7 @@ import java.security.InvalidParameterException;
  * Created by Bernd on 08.11.2017.
  */
 public class MedianFilter extends DataTransformationFilter2<PlanarImage,PlanarImage> {
+
   public MedianFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
     super(input, output);
   }

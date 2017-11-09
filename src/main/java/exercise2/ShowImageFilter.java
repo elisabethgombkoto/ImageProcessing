@@ -34,8 +34,7 @@ public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, Plan
 
   protected PlanarImage process(PlanarImage image) {
     //Get some information about the image
-    String imageInfo =
-        "Dimensions: "+image.getWidth()+"x"+image.getHeight()+ " Bands:"+image.getNumBands();
+    String imageInfo ="Dimensions: "+image.getWidth()+"x"+image.getHeight()+ " Bands:"+image.getNumBands();
 
     // Create a frame for display.
     JFrame frame = new JFrame();

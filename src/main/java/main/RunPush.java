@@ -1,5 +1,7 @@
 package main;
 
+import calcCentroids.CalcCentroidsFilter;
+import calcCentroids.Coordinate;
 import exercise2.*;
 import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
@@ -8,6 +10,7 @@ import javax.media.jai.PlanarImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
 
 /**
  * Created by Elisabeth on 30.10.2017.
@@ -16,21 +19,19 @@ public class RunPush {
 
   public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
 
-    PictureSink pictureSink = new PictureSink();
-    SimplePipe <PlanarImage> sp13 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) pictureSink );
-    //TODO absolute path auf relative path ändern
-    ImageToFileFilter imageToFileFilter = new ImageToFileFilter("C:\\Users\\Elisabeth\\IdeaProjects\\ImageProcessing\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp13);
-    SimplePipe <PlanarImage> sp12 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) imageToFileFilter );
 
     //TODO ich check es noch nicht, also wir machen erst den rest fertig ok?
     //Katja erklärt mir es morgen, dann kann ich diese auch koorekt in main einfügen
+    PictureSink pictureSink = new PictureSink();
+    SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe (pictureSink );
+    CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp12);
+    SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ( calcCentroidFilter );
 
-    //ShowImageFilter showImageFilter6 = new ShowImageFilter((Writeable<PlanarImage>) sp12 );
-    //SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) showImageFilter6 );
-    // calcCentroidFilter = new CalcCentroidFilter ((Writeable<PlanarImage>) sp11);
-    // SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) calcCentroidFilter );
+    //TODO absolute path auf relative path ändern
+    ImageToFileFilter imageToFileFilter = new ImageToFileFilter("C:\\Users\\Elisabeth\\IdeaProjects\\ImageProcessing\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
+    SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) imageToFileFilter );
 
-    ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp12, "Morphological Transformations Opening Filter" );
+    ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp10, "Morphological Transformations Opening Filter" );
     SimplePipe <PlanarImage> sp9 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) showImageFilter5 );
     //TODO OpeningFilter konstruktor sollte die parameter von Außen bekommen
     OpeningFilter openingFilter = new OpeningFilter ((Writeable<PlanarImage>) sp9);
