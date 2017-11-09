@@ -7,7 +7,6 @@ import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -29,7 +28,7 @@ public class RunPush {
     SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ( calcCentroidFilter );
 
     //TODO absolute path auf relative path ändern
-    ImageToFileFilter imageToFileFilter = new ImageToFileFilter("\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
+    ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
     SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) imageToFileFilter );
 
     ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp10, "Morphological Transformations Opening Filter" );
@@ -51,7 +50,7 @@ public class RunPush {
     TresholdFilter tresholdFilter = new TresholdFilter ((Writeable<PlanarImage>) sp5);
     SimplePipe <PlanarImage> sp4 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) tresholdFilter );
 
-    ShowImageFilter showImageFilter2 = new ShowImageFilter((Writeable<PlanarImage>) sp4, " Roi-Filter" );
+    ShowImageFilter showImageFilter2 = new ShowImageFilter((Writeable<PlanarImage>) sp4, " Region of Interest-Filter" );
     SimplePipe <PlanarImage> sp3 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) showImageFilter2 );
     //TODO RoiFilter konstruktor sollte die parameter von Außen bekommen
     RoiFilter roiFilter = new RoiFilter( (Writeable<PlanarImage>) sp3 , new Rectangle(30, 50, 447, 100));
