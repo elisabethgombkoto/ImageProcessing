@@ -51,6 +51,7 @@ public class OpeningFilter extends DataTransformationFilter2<PlanarImage,PlanarI
     pb.add(kernel);
     return JAI.create("dilate", pb);
   }
+
   private PlanarImage erodeProcess(PlanarImage image){
     ParameterBlock pb = new ParameterBlock();
     pb.addSource(image);

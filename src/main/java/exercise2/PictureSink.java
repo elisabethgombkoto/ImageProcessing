@@ -65,7 +65,6 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
     return false;
   }
 
-
   private ArrayList<Coordinate> createExpectedCordinateList(String filePath){
 
     //TODO Bernd array from file einlesen nicht

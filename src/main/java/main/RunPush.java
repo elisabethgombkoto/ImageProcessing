@@ -26,7 +26,7 @@ public class RunPush {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
 
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\results.txt");
+      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPush.txt");
       FileWriter fileWriter = new FileWriter(file);
 
       PictureSink pictureSink = new PictureSink("hier sind die expected mittelpunkte zum finden",fileWriter);
@@ -35,7 +35,7 @@ public class RunPush {
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> (calcCentroidFilter);
 
       // ImageToFileFilter, Parameterübergabe der dest-directory.
-      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
+      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePush.jpg",(Writeable<PlanarImage>) sp11);
       SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ((Writeable<PlanarImage>) imageToFileFilter );
 
       ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp10, "Morphological Transformations Opening-Filter" );

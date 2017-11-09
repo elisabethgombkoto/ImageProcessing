@@ -15,17 +15,15 @@ import java.io.StreamCorruptedException;
 public class SourcePicture extends Source<PlanarImage>  {
 
   private String _path;
-  //public SourcePicture(String path, SimplePipe<PlanarImage> sp1){
-    //_path = path;
-  //}
 
   public SourcePicture(String path, Writeable<PlanarImage> output) throws FileNotFoundException {
     super(output);
     _path = path;
   }
+
   public SourcePicture(String path){
     _path = path;
-  };
+  }
 
   public PlanarImage read() throws StreamCorruptedException {
     PlanarImage image = JAI.create("fileload", _path);
@@ -42,9 +40,5 @@ public class SourcePicture extends Source<PlanarImage>  {
     } catch (StreamCorruptedException e) {
       e.printStackTrace();
     }
-
   }
-
-
-
 }

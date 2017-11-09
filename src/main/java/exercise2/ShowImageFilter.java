@@ -33,10 +33,7 @@ public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, Plan
   }
 
   protected PlanarImage process(PlanarImage image) {
-    //Get some information about the image
-    //String imageInfo ="Dimensions: "+image.getWidth()+"x"+image.getHeight()+ " Bands:"+image.getNumBands();
-
-    // Create a frame for display.
+   // Create a frame for display.
     JFrame frame = new JFrame();
     frame.setTitle("DisplayJAI: "+ _title);
 
@@ -50,9 +47,6 @@ public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, Plan
 // Add to the JFrame� ContentPane an instance of JScrollPane
 // containing the DisplayJAI instance.
     contentPane.add(new JScrollPane(dj),BorderLayout.CENTER);
-
-// Add a text label with the image information.
-//    contentPane.add(new JLabel(BorderLayout.SOUTH);
 
 // Set the closing operation so the application is finished.
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

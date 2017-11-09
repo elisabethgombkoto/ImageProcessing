@@ -21,7 +21,6 @@ public class TresholdFilter extends DataTransformationFilter2<PlanarImage,Planar
     private double _high;
     private double _map;
 
-
     public TresholdFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, double low, double high, double map) throws InvalidParameterException {
         super( input, output );
         _low = low;
@@ -42,12 +41,11 @@ public class TresholdFilter extends DataTransformationFilter2<PlanarImage,Planar
         _high = high;
         _map = map;
     }
-//http://www.javased.com/index.php?api=javax.media.jai.JAI
+
     protected PlanarImage process(PlanarImage entity) {
         double[] lowArray = {_low};
         double[] highArray = {_high};
         double[] mapArray = {_map};
-
 
         ParameterBlock pb=new ParameterBlock();
         pb.addSource(entity);
