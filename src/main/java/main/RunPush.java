@@ -28,7 +28,7 @@ public class RunPush {
     SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ( calcCentroidFilter );
 
     //TODO absolute path auf relative path ändern
-    ImageToFileFilter imageToFileFilter = new ImageToFileFilter("C:\\Users\\Elisabeth\\IdeaProjects\\ImageProcessing\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
+    ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picture.jpg",(Writeable<PlanarImage>) sp11);
     SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ( (Writeable<PlanarImage>) imageToFileFilter );
 
     ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp10, "Morphological Transformations Opening Filter" );
