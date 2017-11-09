@@ -8,22 +8,27 @@ import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.StreamCorruptedException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Created by Elisabeth on 30.10.2017.
+ *
  */
 public class RunPush {
 
-  public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
+  public static void main(String[] args)  {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
+
+
+
+    try {
+      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\results.txt");
+      FileWriter fileWriter = new FileWriter(file);
 
     //TODO ich check es noch nicht, also wir machen erst den rest fertig ok?
     //Katja erklärt mir es morgen, dann kann ich diese auch koorekt in main einfügen
-    PictureSink pictureSink = new PictureSink();
+    PictureSink pictureSink = new PictureSink("hier sind die expected mittelpunkte zum finden",fileWriter);
     SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe (pictureSink );
     CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp12);
     SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ( calcCentroidFilter );
@@ -62,6 +67,8 @@ public class RunPush {
     SourcePicture source = new SourcePicture( "loetstellen.jpg", sp1 );
 
     source.run();
-
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
