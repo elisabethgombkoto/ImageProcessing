@@ -16,26 +16,34 @@ import java.security.InvalidParameterException;
  */
 public class MedianFilter extends DataTransformationFilter2<PlanarImage,PlanarImage> {
 
-  public MedianFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output) throws InvalidParameterException {
+  private MedianFilterShape _medianFilterShape;
+  private int _size;
+
+  public MedianFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, MedianFilterShape medianFilterShape, int size) throws InvalidParameterException {
     super(input, output);
+    _medianFilterShape = medianFilterShape;
+    _size = size;
   }
 
-  public MedianFilter(Readable<PlanarImage> input) throws InvalidParameterException {
+  public MedianFilter(Readable<PlanarImage> input, MedianFilterShape medianFilterShape, int size) throws InvalidParameterException {
     super(input);
+    _medianFilterShape = medianFilterShape;
+    _size = size;
+
   }
 
-  public MedianFilter(Writeable<PlanarImage> output) throws InvalidParameterException {
+  public MedianFilter(Writeable<PlanarImage> output, MedianFilterShape medianFilterShape, int size) throws InvalidParameterException {
     super(output);
+    _medianFilterShape = medianFilterShape;
+    _size = size;
+
   }
-  //google ist mein beste freund
-  //https://www.programcreek.com/java-api-examples/index.php?api=javax.media.jai.operator.MedianFilterDescriptor
+
   protected PlanarImage process(PlanarImage entity) {
-    final int size = 3;
-    final MedianFilterShape shape = MedianFilterDescriptor.MEDIAN_MASK_SQUARE;
     final ParameterBlock pb = new ParameterBlock();
     pb.addSource(entity);
-    pb.add(shape);
-    pb.add(size);
+    pb.add(_medianFilterShape);
+    pb.add(_size);
     return JAI.create("medianfilter", pb);
   }
 }

@@ -12,8 +12,6 @@ import java.security.InvalidParameterException;
 
 /**
  * Created by Bernd on 08.11.2017.
- * google ist mein beste freund
- * code 4 und 5
  * https://findusages.com/search/javax.media.jai.KernelJAI/KernelJAI$3?offset=0
   */
 public class OpeningFilter extends DataTransformationFilter2<PlanarImage,PlanarImage> {
