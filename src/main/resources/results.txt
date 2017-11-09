@@ -1,6 +1,6 @@
-1. Solid Point: Centre -> x = 72 y = 77, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
-2. Solid Point: Centre -> x = 137 y = 80, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
-3. Solid Point: Centre -> x = 201 y = 80, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
-4. Solid Point: Centre -> x = 265 y = 80, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
-5. Solid Point: Centre -> x = 330 y = 81, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
-6. Solid Point: Centre -> x = 396 y = 81, Diameter -> keine Ahnung , Tolerance -> ± noch nicht berechent  in the tolerance range ->  gibt noch kein boolean
+1.Point: Centre -> x = 72 y = 77, Tolerance -> ±  5 in the tolerance range ->  true
+2.Point: Centre -> x = 137 y = 80, Tolerance -> ±  5 in the tolerance range ->  false
+3.Point: Centre -> x = 201 y = 79, Tolerance -> ±  5 in the tolerance range ->  true
+4.Point: Centre -> x = 265 y = 79, Tolerance -> ±  5 in the tolerance range ->  true
+5.Point: Centre -> x = 330 y = 81, Tolerance -> ±  5 in the tolerance range ->  true
+6.Point: Centre -> x = 397 y = 80, Tolerance -> ±  5 in the tolerance range ->  true

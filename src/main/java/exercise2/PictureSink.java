@@ -21,6 +21,7 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
   private FileWriter _fileWriter;
   private String _exceptedMiddelCoordinatePath;
+  private  int _tolerance = 5;
 
   public PictureSink(Readable<ArrayList<Coordinate>> input, String path, FileWriter fileWriter) throws InvalidParameterException{
     super(input);
@@ -43,9 +44,8 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
     for ( Coordinate cordinate : actualValues) {
 
-      System.out.println("x cordinate"+cordinate._x +" y cordinate"+ cordinate._y);
-      stringBuilder.append(i++ + ". Solid Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y + ", Diameter -> keine Ahnung "
-       + ", Tolerance -> ± noch nicht berechent "  + " in the tolerance range ->  gibt noch kein boolean" +   "\n");
+      stringBuilder.append(i++ + ".Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y +
+       ", Tolerance -> ±  " + _tolerance + " in the tolerance range ->  " + isInTolerance(cordinate, expectedValues.get(i-2)) + "\n");
     }
 
     try {
@@ -57,7 +57,16 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
   }
 
- 
+  private boolean isInTolerance(Coordinate actuelCordinate, Coordinate expectedCoordinate) {
+    int differencX = actuelCordinate._x-expectedCoordinate._x;
+    int differencY = actuelCordinate._y-expectedCoordinate._y;
+
+    if((_tolerance> Math.abs(differencX)) &&(_tolerance>Math.abs(differencY))){
+      return true;
+    }
+    return false;
+  }
+
 
   private ArrayList<Coordinate> createExpectedCordinateList(String filePath){
 
