@@ -29,7 +29,7 @@ public class RunPush {
       File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPush.txt");
       FileWriter fileWriter = new FileWriter(file);
 
-      PictureSink pictureSink = new PictureSink(System.getProperty("user.dir")+"\\src\\main\\resources\\expectedCentroids.txt"));
+      PictureSink pictureSink = new PictureSink("hier sind die expected mittelpunkte zum finden",fileWriter);
       SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe (pictureSink );
       CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp12);
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> (calcCentroidFilter);

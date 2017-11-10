@@ -20,17 +20,17 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
   //expected_coordinates=[(73,77), (110,80), (202,80), (265,79), (330,81), (396,81)]
 
   private FileWriter _fileWriter;
-  private String _exeptedCoordinates;
+  private String _exceptedMiddelCoordinatePath;
   private  int _tolerance = 5;
 
   public PictureSink(Readable<ArrayList<Coordinate>> input, String path, FileWriter fileWriter) throws InvalidParameterException{
     super(input);
-    _exeptedCoordinates = path;
+    _exceptedMiddelCoordinatePath = path;
     _fileWriter = fileWriter;
   }
 
   public PictureSink(String path, FileWriter fileWriter)  {
-    _exeptedCoordinates = path;
+    _exceptedMiddelCoordinatePath = path;
     _fileWriter = fileWriter;
   }
 
@@ -65,29 +65,10 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
     return false;
   }
 
+  private ArrayList<Coordinate> createExpectedCordinateList(String filePath){
 
     //TODO Bernd array from file einlesen nicht
     ArrayList<Coordinate> expected = new ArrayList<Coordinate>();
-
-      Reader reader = null;
-      try
-      {
-          reader = new FileReader( );
-
-          for ( int c; ( c = reader.read() ) != -1; )
-          System.out.print( (char) c );
-      }
-      catch ( IOException e ) {
-          System.err.println( "Fehler beim Lesen der Datei!" );
-      }
-      finally {
-          try { reader.close(); } catch ( Exception e ) { e.printStackTrace(); }
-      }
-
-
-
-
-
     Coordinate cor1 = new Coordinate(73,77);
     expected.add(cor1);
     Coordinate cor2 = new Coordinate(110,80);

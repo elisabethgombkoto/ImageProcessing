@@ -29,17 +29,13 @@ public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImag
         super( output );
         _rectangle = rectangle;
     }
-    //TODO RectangelDaten beim Konstruktoraufruf mitgeben.
-
 
     @Override
     protected PlanarImage process(PlanarImage entity) {
         PlanarImage image = entity;
         image = PlanarImage.wrapRenderedImage(image.getAsBufferedImage(_rectangle, image.getColorModel()));
-        image.setProperty( "offsetX",(int) _rectangle.getX());
-        image.setProperty( "offsetY", (int)_rectangle.getY());
+        image.setProperty( "offsetX", (int) _rectangle.getX());
+        image.setProperty( "offsetY", (int) _rectangle.getY());
         return image;
     }
-
-
 }
