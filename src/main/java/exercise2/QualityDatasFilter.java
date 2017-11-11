@@ -9,10 +9,7 @@ import pmp.interfaces.Writeable;
 import javax.media.jai.PlanarImage;
 import java.awt.image.BufferedImage;
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by Elisabeth on 11.11.2017.
@@ -21,7 +18,7 @@ public class QualityDatasFilter extends DataTransformationFilter2<PlanarImage, A
 
   private HashMap<Coordinate, Boolean> _general = new HashMap<Coordinate, Boolean>();
   private LinkedList<ArrayList<Coordinate>> _figures = new LinkedList<ArrayList<Coordinate>>();
-  private javax.media.jai.PlanarImage _image;
+  private PlanarImage _image;
 
 
   public QualityDatasFilter(Readable<PlanarImage> input) throws InvalidParameterException {
@@ -45,8 +42,7 @@ public class QualityDatasFilter extends DataTransformationFilter2<PlanarImage, A
         }
       }
     }
-
-    return calculateCentroids();    //calculate the centroids of all figures
+    return calculateCentroids(entity);    //calculate the centroids of all figures
   }
 
   private void getNextFigure(BufferedImage img, int x, int y) {
@@ -82,7 +78,7 @@ public class QualityDatasFilter extends DataTransformationFilter2<PlanarImage, A
     }
   }
 
-  private ArrayList<QualityData> calculateCentroids() {
+  private ArrayList<QualityData> calculateCentroids(PlanarImage entity ) {
     ArrayList<QualityData> centroids = new ArrayList<QualityData>();
     int i = 0;
     for (ArrayList<Coordinate> figure : _figures) {
@@ -101,11 +97,32 @@ public class QualityDatasFilter extends DataTransformationFilter2<PlanarImage, A
       int yMedian = yValues.get(yValues.size() / 2);
       QualityData qualityData = new QualityData();
       qualityData.set_centroid(new Coordinate(xMedian + (Integer) _image.getProperty("offsetX"), yMedian + (Integer) _image.getProperty("offsetY")));
-      qualityData.set_diameter(xValues.size());
+      qualityData.set_diameter(calculateDiameter(entity, new Coordinate(xMedian, yMedian)));
       centroids.add(i, qualityData);
-
       i++;
     }
     return centroids;
   }
+
+  private int calculateDiameter(PlanarImage entity, Coordinate centroid) {
+    int x = centroid._x;
+    int y = centroid._y;
+    int upperX = centroid._x;
+    int lowerX = centroid._x;
+    BufferedImage img = _image.getAsBufferedImage();
+    int i = 0;
+    int j = 0;
+
+    while ( img.getRaster().getSample(x + i, y, 0) == 255) {
+      upperX=upperX+1;
+      i++;
+    }
+    while (img.getRaster().getSample(x -j, y, 0) == 255) {
+      lowerX = lowerX-1;
+      j++;
+    }
+    return upperX-lowerX;
+  }
+
+
 }
