@@ -6,11 +6,11 @@ package utils;
 public class QualityData {
 
   private Coordinate _centroid;
-  private double _diameter;
+  private int _diameter;
 
   public QualityData (){};
 
-  public QualityData(Coordinate centroid, double diameter){
+  public QualityData(Coordinate centroid, int diameter){
     _centroid = centroid;
     _diameter = diameter;
   }
@@ -19,15 +19,15 @@ public class QualityData {
     return _centroid;
   }
 
-  public void set_centroid(Coordinate _centroid) {
-    this._centroid = _centroid;
+  public void set_centroid(Coordinate centroid) {
+    this._centroid = centroid;
   }
 
-  public double get_diameter() {
+  public int get_diameter() {
     return _diameter;
   }
 
-  public void set_diameter(double _diameter) {
-    this._diameter = _diameter;
+  public void set_diameter(int diameter) {
+    this._diameter = diameter;
   }
 }

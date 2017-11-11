@@ -5,11 +5,11 @@ import utils.QualityData;
 import pmp.filter.Sink;
 import pmp.interfaces.Readable;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StreamCorruptedException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by Elisabeth on 11.11.2017.
@@ -64,8 +64,6 @@ public class QualityResultSink extends Sink<ArrayList<QualityData>> {
   }
 
   private ArrayList<Coordinate> createExpectedCordinateList(String filePath){
-
-    //TODO Bernd array from file einlesen nicht
     ArrayList<Coordinate> expected = new ArrayList<Coordinate>();
     Coordinate cor1 = new Coordinate(73,77);
     expected.add(cor1);
