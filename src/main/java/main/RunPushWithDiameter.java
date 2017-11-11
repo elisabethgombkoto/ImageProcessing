@@ -1,7 +1,6 @@
 package main;
 
-import exercise2.CalcCentroidsFilter;
-import utils.Coordinate;
+import utils.QualityData;
 import exercise2.*;
 import pmp.interfaces.Writeable;
 import pmp.pipes.SimplePipe;
@@ -10,29 +9,24 @@ import javax.media.jai.PlanarImage;
 import javax.media.jai.operator.MedianFilterDescriptor;
 import java.awt.*;
 import java.io.*;
-import java.io.FileNotFoundException;
-
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 /**
- * Created by Elisabeth on 30.10.2017.
- *
+ * Created by Elisabeth on 11.11.2017.
  */
-public class RunPush {
-
+public class RunPushWithDiameter {
 
   public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
 
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPush.txt");
+      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPushWithDiameter.txt");
       FileWriter fileWriter = new FileWriter(file);
 
-      PictureSink pictureSink = new PictureSink("hier sind die expected mittelpunkte zum finden",fileWriter);
-      SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe (pictureSink );
-      CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp12);
-      SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> (calcCentroidFilter);
+      QualityResultSink qualityResultSink = new QualityResultSink(System.getProperty("user.dir")+"\\src\\main\\resources\\expectedCentroids.txt",fileWriter);
+      SimplePipe<ArrayList<QualityData>> sp12 = new SimplePipe (qualityResultSink );
+      QualityDatasFilter qualityDatasFilter = new QualityDatasFilter(sp12);
+      SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> (qualityDatasFilter);
 
       // ImageToFileFilter, Parameterübergabe der dest-directory.
       ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePush.jpg",(Writeable<PlanarImage>) sp11);

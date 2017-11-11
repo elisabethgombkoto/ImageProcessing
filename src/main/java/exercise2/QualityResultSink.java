@@ -1,49 +1,48 @@
 package exercise2;
 
 import utils.Coordinate;
+import utils.QualityData;
 import pmp.filter.Sink;
 import pmp.interfaces.Readable;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
- * Created by Bernd on 08.11.2017.
- *
- * berechent wird ob der mitte der lötsetelle mit der mitte der wunschposition übereinstimmt
- * es gibt eine toleranz für diese übereinsttimmung es muss in kostruktor von außen injected werden.
- * wenn die berechnung statgefunden hat dann soll der result in eine txt file geschrieben werden.
+ * Created by Elisabeth on 11.11.2017.
  */
-public class PictureSink extends Sink<ArrayList<Coordinate>> {
+public class QualityResultSink extends Sink<ArrayList<QualityData>> {
   //expected_coordinates=[(73,77), (110,80), (202,80), (265,79), (330,81), (396,81)]
 
   private FileWriter _fileWriter;
   private String _exceptedMiddelCoordinatePath;
   private  int _tolerance = 5;
 
-  public PictureSink(Readable<ArrayList<Coordinate>> input, String path, FileWriter fileWriter) throws InvalidParameterException{
+  public QualityResultSink(Readable<ArrayList<QualityData>> input, String path, FileWriter fileWriter) throws InvalidParameterException {
     super(input);
     _exceptedMiddelCoordinatePath = path;
     _fileWriter = fileWriter;
   }
 
-  public PictureSink(String path, FileWriter fileWriter)  {
+  public QualityResultSink(String path, FileWriter fileWriter)  {
     _exceptedMiddelCoordinatePath = path;
     _fileWriter = fileWriter;
   }
 
   @Override
-  public void write(ArrayList<Coordinate> actualValues) throws StreamCorruptedException {
+  public void write(ArrayList<QualityData> actualValues) throws StreamCorruptedException {
     ArrayList<Coordinate> expectedValues = createExpectedCordinateList(_exceptedMiddelCoordinatePath);
     StringBuilder stringBuilder = new StringBuilder();
 
     int i = 1;
 
-    for ( Coordinate cordinate : actualValues) {
-      String s = i++ + ".Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y +
-       ", Tolerance -> ±  " + _tolerance + " in the tolerance range ->  " +
-          isInTolerance(cordinate, expectedValues.get(i-2)) + "\n";
+    for ( QualityData qualityData : actualValues) {
+      String s = i++ + ".Point: Centre -> x = " + qualityData.get_centroid()._x + " y = " + qualityData.get_centroid()._y +
+          ", Diameter-> " + qualityData.get_diameter() + ", Tolerance -> ±  " + _tolerance + " in the tolerance range ->  " +
+          isInTolerance(qualityData.get_centroid(), expectedValues.get(i-2)) + "\n";
       stringBuilder.append(s);
     }
     try {
@@ -86,7 +85,7 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
   @Override
   public void run() {
-    ArrayList<Coordinate> input;
+    ArrayList<QualityData> input;
     try {
       input = m_Input.read();
 
