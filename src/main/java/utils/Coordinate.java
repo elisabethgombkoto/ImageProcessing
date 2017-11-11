@@ -1,5 +1,5 @@
 
-package calcCentroids;
+package utils;
 
 public class Coordinate {
 

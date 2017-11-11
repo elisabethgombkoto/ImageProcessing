@@ -1,7 +1,6 @@
 package main;
 
-import exercise2.CalcCentroidsFilter;
-import utils.Coordinate;
+import utils.QualityData;
 import exercise2.*;
 import pmp.interfaces.Readable;
 import pmp.pipes.SimplePipe;
@@ -9,17 +8,19 @@ import pmp.pipes.SimplePipe;
 import javax.media.jai.PlanarImage;
 import javax.media.jai.operator.MedianFilterDescriptor;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by Elisabeth on 09.11.2017.
+ * Created by Elisabeth on 11.11.2017.
  */
-public class RunPull {
+public class RunPullWithDiameter {
   public static void main(String[] args) {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPull.txt");
+      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPullWithDiameter.txt");
       FileWriter fileWriter = new FileWriter(file);
 
       SourcePicture sourcePicture = new SourcePicture("loetstellen.jpg");
@@ -55,15 +56,12 @@ public class RunPull {
       ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePull.jpg",(Readable<PlanarImage>) sp10);
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ((Readable<PlanarImage>) imageToFileFilter );
 
-      CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp11);
-      SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe <ArrayList<Coordinate>> (calcCentroidFilter);
+      QualityDatasFilter qualityDatasFilter = new QualityDatasFilter(sp11);
+      SimplePipe <ArrayList<QualityData>> sp12 = new SimplePipe <ArrayList<QualityData>> (qualityDatasFilter);
 
-      PictureSink pictureSink = new PictureSink((Readable<ArrayList<Coordinate>>) sp12, "hier sind die expected mittelpunkte zum finden",fileWriter);
+      QualityResultSink qualityResultSink = new QualityResultSink((Readable<ArrayList<QualityData>>) sp12, System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPullWithDiameter.txt",fileWriter);
 
-      pictureSink.run();
-
-
-
+      qualityResultSink.run();
 
     } catch (IOException e) {
       e.printStackTrace();
