@@ -35,7 +35,7 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
     @Override
     public void write(ArrayList<Coordinate> actualValues) throws StreamCorruptedException {
-        ArrayList<Coordinate> expectedValues = createExpectedCoordinateList( _exceptedMiddelCoordinatePath );
+        ArrayList<Coordinate> expectedValues = createExpectedCoordinateList();
         StringBuilder stringBuilder = new StringBuilder();
 
         int i = 1;
@@ -64,7 +64,7 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
         return false;
     }
 
-    private ArrayList<Coordinate> createExpectedCoordinateList(String filePath) {
+    private ArrayList<Coordinate> createExpectedCoordinateList() {
 
         ArrayList<Coordinate> expected = new ArrayList<Coordinate>();
         StringBuilder sb = new StringBuilder();
@@ -72,7 +72,7 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
         BufferedReader br = null;
         try {
-            br = new BufferedReader( new FileReader( filePath ) );
+            br = new BufferedReader( new FileReader( _exceptedMiddelCoordinatePath ) );
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

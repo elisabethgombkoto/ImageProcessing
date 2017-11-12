@@ -70,7 +70,7 @@ public class RunPullWithDiameter {
             QualityDatasFilter qualityDatasFilter = new QualityDatasFilter( sp11 );
             SimplePipe<ArrayList<QualityData>> sp12 = new SimplePipe<ArrayList<QualityData>>( qualityDatasFilter );
 
-            QualityResultSink qualityResultSink = new QualityResultSink( (Readable<ArrayList<QualityData>>) sp12, userDir + _resultPath, fileWriter );
+            QualityResultSink qualityResultSink = new QualityResultSink( (Readable<ArrayList<QualityData>>) sp12, userDir + _expectedCentroidPath, fileWriter );
 
             qualityResultSink.run();
 
