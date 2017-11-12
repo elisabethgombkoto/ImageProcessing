@@ -16,13 +16,25 @@ import java.util.ArrayList;
  * Created by Elisabeth on 09.11.2017.
  */
 public class RunPull {
-  public static void main(String[] args) {
+  String _sourcePicturePath;
+  String _expectedCentroidPath;
+  String _destPicturePath;
+  String _resultPath;
+  String userDir = System.getProperty("user.dir");
+
+  public RunPull(String sourcePicturePath, String expectedCentroidPath, String destPicturePath, String resultPath ) {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
+
+    _sourcePicturePath = sourcePicturePath;
+    _expectedCentroidPath = expectedCentroidPath;
+    _destPicturePath = destPicturePath;
+    _resultPath = resultPath;
+
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPull.txt");
+      File file = new File(userDir + _resultPath);
       FileWriter fileWriter = new FileWriter(file);
 
-      SourcePicture sourcePicture = new SourcePicture("loetstellen.jpg");
+      SourcePicture sourcePicture = new SourcePicture(userDir + _sourcePicturePath);
       SimplePipe<PlanarImage> sp1 = new SimplePipe<PlanarImage>(sourcePicture);
       ShowImageFilter showImageFilter1 = new ShowImageFilter((Readable<PlanarImage>) sp1," Original picture");
       SimplePipe<PlanarImage> sp2 = new SimplePipe<PlanarImage>((Readable<PlanarImage>) showImageFilter1);
@@ -52,13 +64,13 @@ public class RunPull {
       SimplePipe<PlanarImage> sp10 = new SimplePipe<PlanarImage>((Readable<PlanarImage>) showImageFilter5);
 
       //save
-      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePull.jpg",(Readable<PlanarImage>) sp10);
+      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(userDir + _destPicturePath, (Readable<PlanarImage>) sp10);
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ((Readable<PlanarImage>) imageToFileFilter );
 
       CalcCentroidsFilter calcCentroidFilter = new CalcCentroidsFilter(sp11);
       SimplePipe <ArrayList<Coordinate>> sp12 = new SimplePipe <ArrayList<Coordinate>> (calcCentroidFilter);
 
-      PictureSink pictureSink = new PictureSink((Readable<ArrayList<Coordinate>>) sp12, "hier sind die expected mittelpunkte zum finden",fileWriter);
+      PictureSink pictureSink = new PictureSink((Readable<ArrayList<Coordinate>>) sp12, userDir + _expectedCentroidPath,fileWriter);
 
       pictureSink.run();
 

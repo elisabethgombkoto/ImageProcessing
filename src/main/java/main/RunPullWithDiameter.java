@@ -17,13 +17,24 @@ import java.util.ArrayList;
  * Created by Elisabeth on 11.11.2017.
  */
 public class RunPullWithDiameter {
-  public static void main(String[] args) {
+  String _sourcePicturePath;
+  String _expectedCentroidPath;
+  String _destPicturePath;
+  String _resultPath;
+  String userDir = System.getProperty("user.dir");
+
+  public RunPullWithDiameter(String sourcePicturePath, String expectedCentroidPath, String destPicturePath, String resultPath) {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
+    _sourcePicturePath = sourcePicturePath;
+    _expectedCentroidPath = expectedCentroidPath;
+    _destPicturePath = destPicturePath;
+    _resultPath = resultPath;
+
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPullWithDiameter.txt");
+      File file = new File(userDir + _resultPath);
       FileWriter fileWriter = new FileWriter(file);
 
-      SourcePicture sourcePicture = new SourcePicture("loetstellen.jpg");
+      SourcePicture sourcePicture = new SourcePicture(userDir + _sourcePicturePath);
       SimplePipe<PlanarImage> sp1 = new SimplePipe<PlanarImage>(sourcePicture);
       ShowImageFilter showImageFilter1 = new ShowImageFilter((Readable<PlanarImage>) sp1," Original picture");
       SimplePipe<PlanarImage> sp2 = new SimplePipe<PlanarImage>((Readable<PlanarImage>) showImageFilter1);
@@ -53,13 +64,13 @@ public class RunPullWithDiameter {
       SimplePipe<PlanarImage> sp10 = new SimplePipe<PlanarImage>((Readable<PlanarImage>) showImageFilter5);
 
       //save
-      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePull.jpg",(Readable<PlanarImage>) sp10);
+      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(userDir + _destPicturePath,(Readable<PlanarImage>) sp10);
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> ((Readable<PlanarImage>) imageToFileFilter );
 
       QualityDatasFilter qualityDatasFilter = new QualityDatasFilter(sp11);
       SimplePipe <ArrayList<QualityData>> sp12 = new SimplePipe <ArrayList<QualityData>> (qualityDatasFilter);
 
-      QualityResultSink qualityResultSink = new QualityResultSink((Readable<ArrayList<QualityData>>) sp12, System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPullWithDiameter.txt",fileWriter);
+      QualityResultSink qualityResultSink = new QualityResultSink((Readable<ArrayList<QualityData>>) sp12, userDir + _resultPath,fileWriter);
 
       qualityResultSink.run();
 

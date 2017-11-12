@@ -15,21 +15,30 @@ import java.util.ArrayList;
  * Created by Elisabeth on 11.11.2017.
  */
 public class RunPushWithDiameter {
+  String _sourcePicturePath;
+  String _expectedCentroidPath;
+  String _destPicturePath;
+  String _resultPath;
+  String userDir = System.getProperty("user.dir");
 
-  public static void main(String[] args) throws StreamCorruptedException, FileNotFoundException {
+  public RunPushWithDiameter(String sourcePicturePath, String expectedCentroidPath, String destPicturePath, String resultPath ) {
     System.setProperty("com.sun.media.jai.disableMediaLib", "true");
+    _sourcePicturePath = sourcePicturePath;
+    _expectedCentroidPath = expectedCentroidPath;
+    _destPicturePath = destPicturePath;
+    _resultPath = resultPath;
 
     try {
-      File file = new File(System.getProperty("user.dir")+"\\src\\main\\resources\\resultsPushWithDiameter.txt");
+      File file = new File(userDir + _resultPath);
       FileWriter fileWriter = new FileWriter(file);
 
-      QualityResultSink qualityResultSink = new QualityResultSink(System.getProperty("user.dir")+"\\src\\main\\resources\\expectedCentroids.txt",fileWriter);
+      QualityResultSink qualityResultSink = new QualityResultSink(userDir +_expectedCentroidPath,fileWriter);
       SimplePipe<ArrayList<QualityData>> sp12 = new SimplePipe (qualityResultSink );
       QualityDatasFilter qualityDatasFilter = new QualityDatasFilter(sp12);
       SimplePipe <PlanarImage> sp11 = new SimplePipe <PlanarImage> (qualityDatasFilter);
 
       // ImageToFileFilter, Parameterübergabe der dest-directory.
-      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(System.getProperty("user.dir")+"\\src\\main\\resources\\picturePush.jpg",(Writeable<PlanarImage>) sp11);
+      ImageToFileFilter imageToFileFilter = new ImageToFileFilter(userDir + _destPicturePath,(Writeable<PlanarImage>) sp11);
       SimplePipe <PlanarImage> sp10 = new SimplePipe <PlanarImage> ((Writeable<PlanarImage>) imageToFileFilter );
 
       ShowImageFilter showImageFilter5 = new ShowImageFilter((Writeable<PlanarImage>) sp10, "Morphological Transformations Opening-Filter" );
@@ -62,7 +71,7 @@ public class RunPushWithDiameter {
 
       ShowImageFilter showImageFilter1 = new ShowImageFilter((Writeable<PlanarImage>) sp2, "Original picture" );
       SimplePipe <PlanarImage> sp1 = new SimplePipe <PlanarImage>((Writeable<PlanarImage>) showImageFilter1);
-      SourcePicture source = new SourcePicture( "loetstellen.jpg", sp1 );
+      SourcePicture source = new SourcePicture( userDir + _sourcePicturePath, sp1 );
 
       source.run();
     } catch (IOException e) {
