@@ -8,7 +8,7 @@ public class QualityData {
   private Coordinate _centroid;
   private int _diameter;
 
-  public QualityData (){};
+  public QualityData (){}
 
   public QualityData(Coordinate centroid, int diameter){
     _centroid = centroid;

@@ -13,7 +13,7 @@ public class Run {
     RunPush runPush;
     RunPull runPull;
 
-    public Run(String str){
+    public Run(String str) {
         selected = str;
         try {
             runMethod();
@@ -23,29 +23,36 @@ public class Run {
     }
 
     private void runMethod() throws StreamCorruptedException {
-        switch (selected){
-            case "a": runPushWithDiameter = new RunPushWithDiameter("\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePushWithDiameter.png", "\\resultsPushWithDiameter.txt"); break;
-            case "b": runPullWithDiameter = new RunPullWithDiameter("\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePullWithDiameter.png", "\\resultsPullWithDiameter.txt"); break;
-            case "c": runPush = new RunPush("\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePush.png", "\\resultsPush.txt"); break;
-            case "d": runPull = new RunPull("\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePull.png", "\\resultsPull.txt"); break;
-            default: runPushWithDiameter = new RunPushWithDiameter("\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePushWithDiameter.png", "\\resultsPushWithDiameter.txt");
+        switch (selected) {
+            case "a":
+                runPushWithDiameter = new RunPushWithDiameter( "\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePushWithDiameter.png", "\\resultsPushWithDiameter.txt" );
+                break;
+            case "b":
+                runPullWithDiameter = new RunPullWithDiameter( "\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePullWithDiameter.png", "\\resultsPullWithDiameter.txt" );
+                break;
+            case "c":
+                runPush = new RunPush( "\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePush.png", "\\resultsPush.txt" );
+                break;
+            case "d":
+                runPull = new RunPull( "\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePull.png", "\\resultsPull.txt" );
+                break;
+            default:
+                runPushWithDiameter = new RunPushWithDiameter( "\\loetstellen.jpg", "\\expectedCentroids.txt", "\\picturePushWithDiameter.png", "\\resultsPushWithDiameter.txt" );
         }
     }
 
 
-
     public static void main(String[] args) {
 
-        System.out.println("Enter 'a' for Push with Diameter");
-        System.out.println("Enter 'b' for Pull with Diameter");
-        System.out.println("Enter 'c' for Push without Diameter");
-        System.out.println("Enter 'd' for Pull without Diameter");
+        System.out.println( "Enter 'a' for Push with Diameter" );
+        System.out.println( "Enter 'b' for Pull with Diameter" );
+        System.out.println( "Enter 'c' for Push without Diameter" );
+        System.out.println( "Enter 'd' for Pull without Diameter" );
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner( System.in );
         String selected = scanner.nextLine();
-        System.out.println("You selected " + selected);
-        Run run = new Run(selected);
-
+        System.out.println( "You selected " + selected );
+        Run run = new Run( selected );
 
 
     }

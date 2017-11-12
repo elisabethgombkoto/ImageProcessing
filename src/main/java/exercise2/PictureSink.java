@@ -40,10 +40,10 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
 
         int i = 1;
 
-        for (Coordinate cordinate : actualValues) {
-            String s = i++ + ".Point: Centre -> x = " + cordinate._x + " y = " + cordinate._y +
+        for (Coordinate coordinate : actualValues) {
+            String s = i++ + ".Point: Centre -> x = " + coordinate._x + " y = " + coordinate._y +
                     ", Tolerance ->  " + _tolerance + " in the tolerance range ->  " +
-                    isInTolerance( cordinate, expectedValues.get( i - 2 ) ) + "\n";
+                    isInTolerance( coordinate, expectedValues.get( i - 2 ) ) + "\n";
             stringBuilder.append( s );
         }
         try {
@@ -86,7 +86,6 @@ public class PictureSink extends Sink<ArrayList<Coordinate>> {
                 }
 
                 while ((Character.isDigit( (char) c )) && c != -1) {
-                    // System.out.println((char) c + " " );
                     sb.append( (char) c );
                     c = br.read();
                 }

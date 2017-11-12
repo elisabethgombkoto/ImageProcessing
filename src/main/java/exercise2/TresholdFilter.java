@@ -6,8 +6,6 @@ import pmp.interfaces.Writeable;
 
 import javax.media.jai.JAI;
 import javax.media.jai.PlanarImage;
-import javax.media.jai.RenderedOp;
-import javax.media.jai.operator.ThresholdDescriptor;
 import java.awt.image.renderable.ParameterBlock;
 import java.security.InvalidParameterException;
 
@@ -16,7 +14,7 @@ import java.security.InvalidParameterException;
  * google is mein beste freund
  * http://www.javased.com/index.php?api=javax.media.jai.JAI
  */
-public class TresholdFilter extends DataTransformationFilter2<PlanarImage,PlanarImage> {
+public class TresholdFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
     private double _low;
     private double _high;
     private double _map;
@@ -47,12 +45,12 @@ public class TresholdFilter extends DataTransformationFilter2<PlanarImage,Planar
         double[] highArray = {_high};
         double[] mapArray = {_map};
 
-        ParameterBlock pb=new ParameterBlock();
-        pb.addSource(entity);
-        pb.add(lowArray);
-        pb.add(highArray);
-        pb.add(mapArray);
-        PlanarImage dest= JAI.create("threshold",pb);
+        ParameterBlock pb = new ParameterBlock();
+        pb.addSource( entity );
+        pb.add( lowArray );
+        pb.add( highArray );
+        pb.add( mapArray );
+        PlanarImage dest = JAI.create( "threshold", pb );
         return dest;
     }
 }

@@ -4,7 +4,6 @@ import com.sun.media.jai.widget.DisplayJAI;
 import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
-import pmp.pipes.SimplePipe;
 
 import javax.media.jai.PlanarImage;
 import javax.swing.*;
@@ -16,42 +15,43 @@ import java.security.InvalidParameterException;
  */
 public class ShowImageFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
 
-  private String _title;
-  public ShowImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, String title) throws InvalidParameterException {
-    super(input, output);
-    _title = title;
-  }
+    private String _title;
 
-  public ShowImageFilter(Readable<PlanarImage> input, String title) throws InvalidParameterException {
-    super(input);
-    _title=title;
-  }
+    public ShowImageFilter(Readable<PlanarImage> input, Writeable<PlanarImage> output, String title) throws InvalidParameterException {
+        super( input, output );
+        _title = title;
+    }
 
-  public ShowImageFilter(Writeable<PlanarImage> output, String title) throws InvalidParameterException {
-    super(output);
-    _title = title;
-  }
+    public ShowImageFilter(Readable<PlanarImage> input, String title) throws InvalidParameterException {
+        super( input );
+        _title = title;
+    }
 
-  protected PlanarImage process(PlanarImage image) {
-   // Create a frame for display.
-    JFrame frame = new JFrame();
-    frame.setTitle("DisplayJAI: "+ _title);
+    public ShowImageFilter(Writeable<PlanarImage> output, String title) throws InvalidParameterException {
+        super( output );
+        _title = title;
+    }
+
+    protected PlanarImage process(PlanarImage image) {
+        // Create a frame for display.
+        JFrame frame = new JFrame();
+        frame.setTitle( "DisplayJAI: " + _title );
 
 // Get the JFrame� ContentPane.
-    Container contentPane = frame.getContentPane();
-    contentPane.setLayout(new BorderLayout());
+        Container contentPane = frame.getContentPane();
+        contentPane.setLayout( new BorderLayout() );
 
 // Create an instance of DisplayJAI.
-    DisplayJAI dj = new DisplayJAI(image);
+        DisplayJAI dj = new DisplayJAI( image );
 
 // Add to the JFrame� ContentPane an instance of JScrollPane
 // containing the DisplayJAI instance.
-    contentPane.add(new JScrollPane(dj),BorderLayout.CENTER);
+        contentPane.add( new JScrollPane( dj ), BorderLayout.CENTER );
 
 // Set the closing operation so the application is finished.
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(500,600); // adjust the frame size.
-    frame.setVisible(true); // show the frame.
-    return image;
-  }
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        frame.setSize( 500, 600 ); // adjust the frame size.
+        frame.setVisible( true ); // show the frame.
+        return image;
+    }
 }

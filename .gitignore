@@ -6,3 +6,17 @@
 /src/main/resources/picture.jpg
 src/main/resources/picture.jpg
 
+ImageProcessing.jar
+out/
+picturePull.png
+picturePullWithDiameter.png
+picturePush.jpg
+picturePush.png
+picturePushWithDiameter.png
+resultsPull.txt
+resultsPullWithDiameter.txt
+resultsPush.txt
+resultsPushWithDiameter.txt
+src/main/META-INF/
+src/main/java/META-INF/
+target/

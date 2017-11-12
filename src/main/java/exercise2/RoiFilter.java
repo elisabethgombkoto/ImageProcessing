@@ -11,7 +11,7 @@ import java.security.InvalidParameterException;
 /**
  * Created by Bernd on 06.11.2017.
  */
-public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImage>{
+public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImage> {
 
     private Rectangle _rectangle;
 
@@ -33,9 +33,9 @@ public class RoiFilter extends DataTransformationFilter2<PlanarImage, PlanarImag
     @Override
     protected PlanarImage process(PlanarImage entity) {
         PlanarImage image = entity;
-        image = PlanarImage.wrapRenderedImage(image.getAsBufferedImage(_rectangle, image.getColorModel()));
-        image.setProperty( "offsetX", (int) _rectangle.getX());
-        image.setProperty( "offsetY", (int) _rectangle.getY());
+        image = PlanarImage.wrapRenderedImage( image.getAsBufferedImage( _rectangle, image.getColorModel() ) );
+        image.setProperty( "offsetX", (int) _rectangle.getX() );
+        image.setProperty( "offsetY", (int) _rectangle.getY() );
         return image;
     }
 }

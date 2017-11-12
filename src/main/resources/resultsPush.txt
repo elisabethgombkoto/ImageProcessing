@@ -1,6 +1,0 @@
-1.Point: Centre -> x = 72 y = 77, Diameter-> 257.0, Tolerance -> ±  5 in the tolerance range ->  true
-2.Point: Centre -> x = 137 y = 80, Diameter-> 227.0, Tolerance -> ±  5 in the tolerance range ->  false
-3.Point: Centre -> x = 201 y = 79, Diameter-> 261.0, Tolerance -> ±  5 in the tolerance range ->  true
-4.Point: Centre -> x = 265 y = 79, Diameter-> 284.0, Tolerance -> ±  5 in the tolerance range ->  true
-5.Point: Centre -> x = 330 y = 81, Diameter-> 267.0, Tolerance -> ±  5 in the tolerance range ->  true
-6.Point: Centre -> x = 397 y = 80, Diameter-> 286.0, Tolerance -> ±  5 in the tolerance range ->  true

@@ -21,7 +21,7 @@ public class RunPush {
     String _expectedCentroidPath;
     String _destPicturePath;
     String _resultPath;
-    String userDir = System.getProperty("user.dir");
+    String userDir = System.getProperty( "user.dir" );
 
     public RunPush(String sourcePicturePath, String expectedCentroidPath, String destPicturePath, String resultPath) {
         System.setProperty( "com.sun.media.jai.disableMediaLib", "true" );
