@@ -1,4 +1,4 @@
-package exercise2;
+package filers;
 
 import com.sun.media.jai.widget.DisplayJAI;
 import pmp.filter.DataTransformationFilter2;

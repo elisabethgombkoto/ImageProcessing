@@ -1,6 +1,6 @@
 package main;
 
-import exercise2.*;
+import filers.*;
 import pmp.interfaces.Readable;
 import pmp.pipes.SimplePipe;
 import utils.QualityData;

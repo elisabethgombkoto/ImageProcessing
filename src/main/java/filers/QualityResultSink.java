@@ -1,4 +1,4 @@
-package exercise2;
+package filers;
 
 import utils.Coordinate;
 import utils.QualityData;
@@ -6,10 +6,8 @@ import pmp.filter.Sink;
 import pmp.interfaces.Readable;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by Elisabeth on 11.11.2017.

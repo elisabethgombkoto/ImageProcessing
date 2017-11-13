@@ -1,13 +1,10 @@
-package exercise2;
-/* this filter expects the bonding discs to be completely white: pixel value of 255 on a scale of 0..255
- * all other pixels in the image are expected to have a pixel value < 255
- * use this filter adapting eventually the package name
- */
+package filers;
 
 import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;
 import pmp.interfaces.Writeable;
 import utils.Coordinate;
+import utils.QualityData;
 
 import javax.media.jai.PlanarImage;
 import java.awt.image.BufferedImage;
@@ -17,23 +14,26 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, ArrayList<Coordinate>> {
+/**
+ * Created by Elisabeth on 11.11.2017.
+ */
+public class QualityDatasFilter extends DataTransformationFilter2<PlanarImage, ArrayList<QualityData>> {
 
     private HashMap<Coordinate, Boolean> _general = new HashMap<Coordinate, Boolean>();
     private LinkedList<ArrayList<Coordinate>> _figures = new LinkedList<ArrayList<Coordinate>>();
-    private javax.media.jai.PlanarImage _image;
+    private PlanarImage _image;
 
 
-    public CalcCentroidsFilter(Readable<PlanarImage> input) throws InvalidParameterException {
+    public QualityDatasFilter(Readable<PlanarImage> input) throws InvalidParameterException {
         super( input );
     }
 
-    public CalcCentroidsFilter(Writeable<ArrayList<Coordinate>> output) throws InvalidParameterException {
+    public QualityDatasFilter(Writeable<ArrayList<QualityData>> output) throws InvalidParameterException {
         super( output );
     }
 
 
-    protected ArrayList<Coordinate> process(PlanarImage entity) {
+    protected ArrayList<QualityData> process(PlanarImage entity) {
         _image = entity;
         BufferedImage bi = entity.getAsBufferedImage();
 
@@ -45,8 +45,7 @@ public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, 
                 }
             }
         }
-
-        return calculateCentroids();    //calculate the centroids of all figures
+        return calculateCentroids( entity );    //calculate the centroids of all figures
     }
 
     private void getNextFigure(BufferedImage img, int x, int y) {
@@ -55,35 +54,35 @@ public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, 
         figure.add( new Coordinate( x, y ) );
 
         addConnectedComponents( img, figure, x, y );
+
         _figures.add( figure );
     }
 
     private void addConnectedComponents(BufferedImage img, ArrayList<Coordinate> figure, int x, int y) {
-        if (x - 1 >= 0 && !_general.containsKey( (new Coordinate( x - 1, y )) ) && img.getRaster().getSample( x - 1, y, 0 ) == 255) {
+        if (x - 1 >= 0 && _general.containsKey( (new Coordinate( x - 1, y )) ) == false && img.getRaster().getSample( x - 1, y, 0 ) == 255) {
             _general.put( new Coordinate( x - 1, y ), true );
             figure.add( new Coordinate( x - 1, y ) );
             addConnectedComponents( img, figure, x - 1, y );
         }
-        if (x + 1 < img.getWidth() && !_general.containsKey( (new Coordinate( x + 1, y )) ) && img.getRaster().getSample( x + 1, y, 0 ) == 255) {
+        if (x + 1 < img.getWidth() && _general.containsKey( (new Coordinate( x + 1, y )) ) == false && img.getRaster().getSample( x + 1, y, 0 ) == 255) {
             _general.put( new Coordinate( x + 1, y ), true );
             figure.add( new Coordinate( x + 1, y ) );
             addConnectedComponents( img, figure, x + 1, y );
         }
-        if (y - 1 >= 0 && !_general.containsKey( (new Coordinate( x, y - 1 )) ) && img.getRaster().getSample( x, y - 1, 0 ) == 255) {
+        if (y - 1 >= 0 && _general.containsKey( (new Coordinate( x, y - 1 )) ) == false && img.getRaster().getSample( x, y - 1, 0 ) == 255) {
             _general.put( new Coordinate( x, y - 1 ), true );
             figure.add( new Coordinate( x, y - 1 ) );
             addConnectedComponents( img, figure, x, y - 1 );
         }
-        if (y + 1 < img.getHeight() && !_general.containsKey( (new Coordinate( x, y + 1 )) ) && img.getRaster().getSample( x, y + 1, 0 ) == 255) {
+        if (y + 1 < img.getHeight() && _general.containsKey( (new Coordinate( x, y + 1 )) ) == false && img.getRaster().getSample( x, y + 1, 0 ) == 255) {
             _general.put( new Coordinate( x, y + 1 ), true );
             figure.add( new Coordinate( x, y + 1 ) );
             addConnectedComponents( img, figure, x, y + 1 );
-
         }
     }
 
-    private ArrayList<Coordinate> calculateCentroids() {
-        ArrayList<Coordinate> centroids = new ArrayList<Coordinate>();
+    private ArrayList<QualityData> calculateCentroids(PlanarImage entity) {
+        ArrayList<QualityData> centroids = new ArrayList<QualityData>();
         int i = 0;
         for (ArrayList<Coordinate> figure : _figures) {
             LinkedList<Integer> xValues = new LinkedList<Integer>();
@@ -99,13 +98,34 @@ public class CalcCentroidsFilter extends DataTransformationFilter2<PlanarImage, 
 
             int xMedian = xValues.get( xValues.size() / 2 );
             int yMedian = yValues.get( yValues.size() / 2 );
-
-            centroids.add( new Coordinate( xMedian + (Integer) _image.getProperty( "offsetX" ), yMedian + (Integer) _image.getProperty( "offsetY" ) ) );
-
+            QualityData qualityData = new QualityData();
+            qualityData.set_centroid( new Coordinate( xMedian + (Integer) _image.getProperty( "offsetX" ), yMedian + (Integer) _image.getProperty( "offsetY" ) ) );
+            qualityData.set_diameter( calculateDiameter( entity, new Coordinate( xMedian, yMedian ) ) );
+            centroids.add( i, qualityData );
             i++;
         }
-
-
         return centroids;
     }
+
+    private int calculateDiameter(PlanarImage entity, Coordinate centroid) {
+        int x = centroid._x;
+        int y = centroid._y;
+        int upperX = centroid._x;
+        int lowerX = centroid._x;
+        BufferedImage img = _image.getAsBufferedImage();
+        int i = 0;
+        int j = 0;
+
+        while (img.getRaster().getSample( x + i, y, 0 ) == 255) {
+            upperX = upperX + 1;
+            i++;
+        }
+        while (img.getRaster().getSample( x - j, y, 0 ) == 255) {
+            lowerX = lowerX - 1;
+            j++;
+        }
+        return upperX - lowerX;
+    }
+
+
 }

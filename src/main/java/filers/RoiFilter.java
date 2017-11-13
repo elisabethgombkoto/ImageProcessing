@@ -1,4 +1,4 @@
-package exercise2;
+package filers;
 
 import pmp.filter.DataTransformationFilter2;
 import pmp.interfaces.Readable;

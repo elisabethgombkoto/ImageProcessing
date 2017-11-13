@@ -1,4 +1,4 @@
-package exercise2;
+package filers;
 
 import pmp.filter.Source;
 import pmp.interfaces.Writeable;
